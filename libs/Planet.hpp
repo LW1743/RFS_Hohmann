@@ -1,7 +1,6 @@
 //
 // Created by lukas on 24/11/2026.
 //
-
 #ifndef RFS_HOHMANN_PLANET_H
 #define RFS_HOHMANN_PLANET_H
 #include <string>
@@ -32,8 +31,15 @@ public:
 };
 
 namespace planets {
-    inline Planet venus{"Venus", 6051800, 0};
+    /*
+     *Values from https://nssdc.gsfc.nasa.gov/planetary/factsheet/
+     * name = Planet Name
+     * radius_m = Equatorial Radius of the Planet in m
+     * mass = Planet Mass in kg
+     */
+    inline Planet venus{"Venus", 6051800, 4.8673e24};
     inline Planet earth{"Earth", 6371000, 5.9722e24};
+    inline Planet mars{"Mars", }
 }
 
 
