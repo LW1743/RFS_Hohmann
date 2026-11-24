@@ -37,9 +37,12 @@ namespace planets {
      * radius_m = Equatorial Radius of the Planet in m
      * mass = Planet Mass in kg
      */
-    inline Planet venus{"Venus", 6051800, 4.8673e24};
-    inline Planet earth{"Earth", 6371000, 5.9722e24};
-    inline Planet mars{"Mars", }
+    inline Planet venus{"Venus", 6051.8e3, 4.8673e24};
+    inline Planet earth{"Earth", 6371.1e3, 5.9722e24};
+    inline Planet mars{"Mars", 3396.2e3,0.64169e24};
+    inline Planet jupiter{"Jupiter", 71492e3, 1898.13e24};
+    inline Planet saturn{"Saturn", 60268e3, 568.32e24};
+    inline Planet earth_moon{"Erdmond", 1738.1e3, 0.07346e24};
 }
 
 
