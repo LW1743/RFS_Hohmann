@@ -4,6 +4,7 @@
 
 /*TODO
  * Test for stupid altitudes
+ * Make Loop for the txt file
  */
 
 int main() {
