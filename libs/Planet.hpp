@@ -11,23 +11,31 @@
 
 class Planet {
 private:
+    //vars
     std::string name_;
     double radius_m_;
     double gravity_mps2_;
     double mass_;
 public:
+    //constructor
     Planet(std::string name, double radius_m, double mass)
         : name_(std::move(name)), radius_m_(radius_m), mass_(mass) {
         gravity_mps2_ = (constants::G * mass_) / (radius_m_*radius_m_);
     }
-
+    //getter methods
     std::string name() {return name_;};
     double radius() {return radius_m_;};
     double gravity() {return gravity_mps2_;};
     double mass() {return mass_;};
 
+    //calculate escape velocity
     double escape_velocity() {
         return std::sqrt(2.0 * gravity_mps2_ * radius_m_);
+    }
+
+    double escape_velocityAtAlt(double altitude) {
+        double res = std::sqrt( (2.0 * constants::G * this->mass())/ (radius_m_ + altitude));
+        return res;
     }
 };
 

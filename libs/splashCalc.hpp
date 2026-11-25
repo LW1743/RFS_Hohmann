@@ -8,6 +8,8 @@
 
 #include "hohmann.hpp"
 
+//NOTE TO SELF: Negative Delta V means slowing down
+
 class splashCalc {
 private:
     std::string name_;
@@ -17,8 +19,8 @@ private:
 public:
 
     static double calculateRequiredFuelInKG(double c, double m0, double deltaV) {
-        //Calculate mT using Ziolkowski
-        double m1 = m0 * std::exp(-deltaV / c);
+        //Calculate mT using Tsiolkovsky
+        double m1 = m0 * std::exp(- std::abs(deltaV) / c);
         return m0 - m1;
     }
 
@@ -50,16 +52,18 @@ public:
         deltaV = calculateRequiredDeltaVForSplashdown(currentAlt, planets::earth);
         fuel = calculateRequiredFuelInKG(c, m0, deltaV);
 
+        //Saves to file when answer was "y"
         if (input == "y") {
             outFile << "Current Altitude in m:\t" << currentAlt << std::endl;
             outFile << "Mass in kg: \t\t\t" << m0 << std::endl;
             outFile << "Exit Velocity: \t\t\t" << c << std::endl;
-            outFile <<  "Required deltaV: \t\t" << deltaV << std::endl;
-            outFile << "Required fuel: \t\t\t" << m0 << std::endl;
+            outFile <<  "Required deltaV: \t\t" << std::abs(deltaV) << std::endl;
+            outFile << "Required fuel: \t\t\t" << fuel << std::endl;
         }
 
-        std::cout << "Required deltaV:\t " << deltaV << std::endl;
-        std::cout << "Required fuel:\t\t " << m0 << std::endl;
+        //Print results
+        std::cout << "Required deltaV:\t " << std::abs(deltaV) << std::endl;
+        std::cout << "Required fuel:\t\t " << fuel << std::endl;
     }
 
 };

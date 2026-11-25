@@ -16,7 +16,6 @@ public:
          * Return Values explained:
          * -1 = r1 below Planet Surface
          * -2 = r2 below Planet Surface
-         * -3 = deltaV above Escape Velocity
         */
 
         if (r1AboveSurface <= 0) {
@@ -31,10 +30,6 @@ public:
         double r1 = r1AboveSurface + planet.radius();
         double r2 = r2AboveSurface + planet.radius();
         double deltaV1 = std::sqrt((constants::G*planet.mass())/(r1)) * (std::sqrt((2* r2)/(r1+r2)) -1 ); // sqrt(GM/r1) * (sqrt(2 * r2 / (r1 + r2) ) - 1) to calculate the delta V for entering elliptical transfer orbit
-
-        if (deltaV1 >= planet.escape_velocity()) {
-            return -3;
-        }
 
         return deltaV1;
     }
@@ -60,34 +55,50 @@ public:
         double r2 = r2AboveSurface + planet.radius();
         double deltaV2 = std::sqrt((constants::G*planet.mass())/(r2)) * (1 - std::sqrt((2* r1)/(r1+r2))); // sqrt(GM/r2) * (1 - sqrt(2 * r1 / (r1 + r2) )) to calculate the delta V for exiting elliptical transfer orbit
 
-        if (deltaV2 >= planet.escape_velocity()) {
-            return -3;
-        }
         return deltaV2;
     }
 
     static double calculateRequiredDeltaVTotal (double r1AboveSurface, double r2AboveSurface, Planet planet) {
+        //calc sum of v1 and v2
         return calculateRequiredDeltaV1(r1AboveSurface,r2AboveSurface,planet) + calculateRequiredDeltaV2(r1AboveSurface,r2AboveSurface,planet);
     }
 
+    //calculate the orbital velocity for later checking
+    static double calculateOrbitalVelocity(double rAboveSurface, Planet p) {
+        double mu = (constants::G * p.mass());
+        double velocity = std::sqrt(mu/(p.radius() + rAboveSurface));
+        return velocity;
+    }
+
+    //Execute the hohmann question and calculations when selected by menu
     static int run() {
+
+        //create output file
         std::ofstream outFile;
         outFile.open("hohmann.txt");
 
+        //vars
         double startAlt, endAlt;
         std::string input;
 
+        //ask for inputs
         std::cout << "Please enter Start Altitude in m" << std::endl;
         std::cin >> startAlt;
         std::cout << "Please enter End Altitude in m" << std::endl;
         std::cin >> endAlt;
         std::cout << "Write to file hohmann.txt? (y/N)" << std::endl;
         std::cin >> input;
+        std::cout << "NOTE: Negative deltaV values mean the craft needs to slow down" << std::endl;
+
+
+
+        //write to file when answer was "y"
         if (input == "y") {
             /* Print to outFile */
             outFile << "Start Altitude in m: " << startAlt << std::endl;
             outFile << "End Altitude in m:\t" << endAlt << std::endl;
 
+            //calc for all planets
             for (Planet p : planets::planets) {
                 double V1 = hohmann::calculateRequiredDeltaV1(startAlt, endAlt, p);
                 double V2 = hohmann::calculateRequiredDeltaV2(startAlt, endAlt, p);
@@ -96,8 +107,11 @@ public:
                 outFile << "Required V1:\t\t" << V1 << std::endl;
                 outFile << "Required V2:\t\t" << V2 << std::endl;
                 outFile << "Required VTotal:\t" << VTotal << std::endl;
+
             }
         }
+
+        //print results and calc for all planets
         for (Planet p : planets::planets) {
             double V1 = hohmann::calculateRequiredDeltaV1(startAlt, endAlt, p);
             double V2 = hohmann::calculateRequiredDeltaV2(startAlt, endAlt, p);
@@ -106,6 +120,7 @@ public:
             std::cout << "Required V1:\t\t" << V1 << std::endl;
             std::cout << "Required V2:\t\t" << V2 << std::endl;
             std::cout << "Required VTotal:\t" << VTotal << std::endl;
+
         }
 
         return 0;

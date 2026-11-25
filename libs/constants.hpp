@@ -6,9 +6,12 @@
 #define RFS_HOHMANN_CONSTANTS_H
 
 namespace constants {
+    //gravitational constant
     inline constexpr double G = 6.67430e-11;
+    //menu text
     inline const std::string menu = "Please select: \n\t[1] Calculate Hohmann Transfer \n\t[2] Calculate Splashdown \n\t[3] Exit";
-    inline constexpr double hydrazineExitVelocity = 2500; //Assume hydrazineExitVelocity to be 2500 m/s
+    //Assume hydrazineExitVelocity to be 2500 m/s
+    inline constexpr double hydrazineExitVelocity = 2500;
 
 }
 

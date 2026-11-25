@@ -13,5 +13,4 @@ int main() {
         if (input == 2) splashCalc::run();
         if (input == 3) break;
     }
-
 }
