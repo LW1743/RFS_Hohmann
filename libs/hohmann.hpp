@@ -72,7 +72,7 @@ public:
 
     static int run() {
         std::ofstream outFile;
-        outFile.open("out.txt");
+        outFile.open("hohmann.txt");
 
         double startAlt, endAlt;
         std::string input;
@@ -81,33 +81,31 @@ public:
         std::cin >> startAlt;
         std::cout << "Please enter End Altitude in m" << std::endl;
         std::cin >> endAlt;
-        std::cout << "Write to file? (y/N)" << std::endl;
+        std::cout << "Write to file hohmann.txt? (y/N)" << std::endl;
         std::cin >> input;
         if (input == "y") {
             /* Print to outFile */
             outFile << "Start Altitude in m: " << startAlt << std::endl;
-            outFile << "End Altitude in m: " << endAlt << std::endl;
+            outFile << "End Altitude in m:\t" << endAlt << std::endl;
 
             for (Planet p : planets::planets) {
                 double V1 = hohmann::calculateRequiredDeltaV1(startAlt, endAlt, p);
                 double V2 = hohmann::calculateRequiredDeltaV2(startAlt, endAlt, p);
                 double VTotal = hohmann::calculateRequiredDeltaVTotal(startAlt, endAlt, p);
                 outFile << p.name() << std::endl;
-                outFile << "Required V1:\t\t " << V1 << std::endl;
-                outFile << "Required V2:\t\t " << V2 << std::endl;
-                outFile << "Required VTotal:\t " << VTotal << std::endl;
+                outFile << "Required V1:\t\t" << V1 << std::endl;
+                outFile << "Required V2:\t\t" << V2 << std::endl;
+                outFile << "Required VTotal:\t" << VTotal << std::endl;
             }
         }
-        else {
-            for (Planet p : planets::planets) {
-                double V1 = hohmann::calculateRequiredDeltaV1(startAlt, endAlt, p);
-                double V2 = hohmann::calculateRequiredDeltaV2(startAlt, endAlt, p);
-                double VTotal = hohmann::calculateRequiredDeltaVTotal(startAlt, endAlt, p);
-                std::cout << p.name() << std::endl;
-                std::cout << "Required V1:\t\t " << V1 << std::endl;
-                std::cout << "Required V2:\t\t " << V2 << std::endl;
-                std::cout << "Required VTotal:\t " << VTotal << std::endl;
-            }
+        for (Planet p : planets::planets) {
+            double V1 = hohmann::calculateRequiredDeltaV1(startAlt, endAlt, p);
+            double V2 = hohmann::calculateRequiredDeltaV2(startAlt, endAlt, p);
+            double VTotal = hohmann::calculateRequiredDeltaVTotal(startAlt, endAlt, p);
+            std::cout << p.name() << std::endl;
+            std::cout << "Required V1:\t\t" << V1 << std::endl;
+            std::cout << "Required V2:\t\t" << V2 << std::endl;
+            std::cout << "Required VTotal:\t" << VTotal << std::endl;
         }
 
         return 0;
