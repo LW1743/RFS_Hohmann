@@ -11,4 +11,6 @@ add_executable(RFS_Hohmann main.cpp
         libs/constants.hpp
         libs/Planet.hpp
         libs/Planet.hpp
-        libs/hohmann.hpp)
+        libs/hohmann.hpp
+        libs/splashCalc.hpp
+        libs/splashCalc.hpp)

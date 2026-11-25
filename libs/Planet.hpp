@@ -3,6 +3,7 @@
 //
 #ifndef RFS_HOHMANN_PLANET_H
 #define RFS_HOHMANN_PLANET_H
+#include <array>
 #include <string>
 #include <cmath>
 #include <utility>
@@ -43,6 +44,16 @@ namespace planets {
     inline Planet jupiter{"Jupiter", 71492e3, 1898.13e24};
     inline Planet saturn{"Saturn", 60268e3, 568.32e24};
     inline Planet earth_moon{"Erdmond", 1738.1e3, 0.07346e24};
+
+    inline std::array<Planet, 6> planets = {
+        venus,
+        earth,
+        mars,
+        jupiter,
+        saturn,
+        earth_moon
+    };
+
 }
 
 

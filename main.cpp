@@ -1,18 +1,17 @@
+#include <fstream>
 #include <iostream>
 #include "libs/Planet.hpp"
 #include "libs/hohmann.hpp"
-
-/*TODO
- * Test for stupid altitudes
- * Make Loop for the txt file
- */
+#include "libs/splashCalc.hpp"
 
 int main() {
-    double V1 = hohmann::calculateRequiredDeltaV1(450000, 900000, planets::earth);
-    double V2 = hohmann::calculateRequiredDeltaV2(450000, 900000, planets::earth);
-    double VTotal = hohmann::calculateRequiredDeltaVTotal(450000, 900000, planets::earth);
-    std::cout << V1 << std::endl;
-    std::cout << V2 << std::endl;
-    std::cout << VTotal << std::endl;
-    return 0;
+    while (true) {
+        std::cout << constants::menu << std::endl;
+        int input;
+        std::cin >> input;
+        if (input == 1) hohmann::run();
+        if (input == 2) splashCalc::run();
+        if (input == 3) break;
+    }
+
 }
